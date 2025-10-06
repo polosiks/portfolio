@@ -199,8 +199,9 @@
   </main>
 
   <script>
-    const body = document.body;
-    window.addEventListener('scroll', () => {
+  const body = document.body;
+
+  function updateBackground() {
       const scrollTop = window.scrollY;
       const docHeight = document.body.scrollHeight - window.innerHeight;
       const scrollFraction = scrollTop / docHeight;
@@ -209,18 +210,25 @@
       const endColor = [0, 51, 77];
       let r, g, b;
       if (scrollFraction < 0.5) {
-        const t = scrollFraction / 0.5;
-        r = startColor[0] + t * (middleColor[0] - startColor[0]);
-        g = startColor[1] + t * (middleColor[1] - startColor[1]);
-        b = startColor[2] + t * (middleColor[2] - startColor[2]);
+          const t = scrollFraction / 0.5;
+          r = startColor[0] + t * (middleColor[0] - startColor[0]);
+          g = startColor[1] + t * (middleColor[1] - startColor[1]);
+          b = startColor[2] + t * (middleColor[2] - startColor[2]);
       } else {
-        const t = (scrollFraction - 0.5) / 0.5;
-        r = middleColor[0] + t * (endColor[0] - middleColor[0]);
-        g = middleColor[1] + t * (endColor[1] - middleColor[1]);
-        b = middleColor[2] + t * (endColor[2] - middleColor[2]);
+          const t = (scrollFraction - 0.5) / 0.5;
+          r = middleColor[0] + t * (endColor[0] - middleColor[0]);
+          g = middleColor[1] + t * (endColor[1] - middleColor[1]);
+          b = middleColor[2] + t * (endColor[2] - middleColor[2]);
       }
       body.style.background = `rgb(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)})`;
-    });
+  }
+
+  // Set background on page load
+  updateBackground();
+
+  // Update background on scroll
+  window.addEventListener('scroll', updateBackground);
   </script>
+
 </body>
 </html>
