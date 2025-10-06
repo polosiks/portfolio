@@ -16,7 +16,7 @@
     }
 
     body {
-      min-height: 300vh;
+      min-height: 400vh;
       font-family: 'Poppins', sans-serif;
       color: white;
       transition: background 0.3s linear;
@@ -57,7 +57,6 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      min-height: 100vh;
       padding: 3rem 1rem;
     }
 
@@ -129,17 +128,55 @@
     .portfolio-images {
       display: flex;
       gap: 20px;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       justify-content: center;
+      align-items: center;
       margin-top: 1rem;
     }
 
     .portfolio-image {
-      max-width: 300px;
+      flex: 1 1 45%;
       width: 100%;
       border-radius: 20px;
       box-shadow: 0 0 20px rgba(0,0,0,0.5);
       object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+    .portfolio-image:hover {
+      transform: scale(1.05);
+    }
+
+    .colleagues-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 1rem;
+    }
+
+    .colleague {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 15px 25px;
+      border-radius: 20px;
+      min-width: 200px;
+      max-width: 250px;
+      text-align: center;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .colleague:hover {
+      transform: scale(1.05);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .colleague h3 {
+      margin-bottom: 0.5rem;
+      color: #00ccff;
+    }
+
+    .colleague p {
+      color: white;
     }
   </style>
 </head>
@@ -163,30 +200,19 @@
       </div>
     </section>
 
-    <style>
-    .portfolio-images {
-      display: flex;
-      gap: 20px;
-      flex-wrap: nowrap; /* prevent wrapping so images stay side by side */
-      justify-content: center;
-      align-items: center;
-      margin-top: 1rem;
-    }
-
-    .portfolio-image {
-      flex: 1 1 45%; /* take up roughly half the container each */
-      width: 100%;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-      object-fit: contain;
-      transition: transform 0.3s ease;
-    }
-
-    .portfolio-image:hover {
-      transform: scale(1.05); /* slightly enlarge on hover */
-    }
-    </style>
-
+    <section id="colleagues">
+      <h2>Acquaintances & Colleagues</h2>
+      <div class="colleagues-list">
+        <div class="colleague">
+          <h3>GoldMakesMusic</h3>
+          <p>Music Creator</p>
+        </div>
+        <div class="colleague">
+          <h3>Deron_fans</h3>
+          <p>Animator & Pixel Artist</p>
+        </div>
+      </div>
+    </section>
 
     <section id="contact">
       <h2>Contact Me</h2>
@@ -199,9 +225,9 @@
   </main>
 
   <script>
-  const body = document.body;
+    const body = document.body;
 
-  function updateBackground() {
+    function updateBackground() {
       const scrollTop = window.scrollY;
       const docHeight = document.body.scrollHeight - window.innerHeight;
       const scrollFraction = scrollTop / docHeight;
@@ -210,25 +236,21 @@
       const endColor = [0, 51, 77];
       let r, g, b;
       if (scrollFraction < 0.5) {
-          const t = scrollFraction / 0.5;
-          r = startColor[0] + t * (middleColor[0] - startColor[0]);
-          g = startColor[1] + t * (middleColor[1] - startColor[1]);
-          b = startColor[2] + t * (middleColor[2] - startColor[2]);
+        const t = scrollFraction / 0.5;
+        r = startColor[0] + t * (middleColor[0] - startColor[0]);
+        g = startColor[1] + t * (middleColor[1] - startColor[1]);
+        b = startColor[2] + t * (middleColor[2] - startColor[2]);
       } else {
-          const t = (scrollFraction - 0.5) / 0.5;
-          r = middleColor[0] + t * (endColor[0] - middleColor[0]);
-          g = middleColor[1] + t * (endColor[1] - middleColor[1]);
-          b = middleColor[2] + t * (endColor[2] - middleColor[2]);
+        const t = (scrollFraction - 0.5) / 0.5;
+        r = middleColor[0] + t * (endColor[0] - middleColor[0]);
+        g = middleColor[1] + t * (endColor[1] - middleColor[1]);
+        b = middleColor[2] + t * (endColor[2] - middleColor[2]);
       }
       body.style.background = `rgb(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)})`;
-  }
+    }
 
-  // Set background on page load
-  updateBackground();
-
-  // Update background on scroll
-  window.addEventListener('scroll', updateBackground);
+    updateBackground();
+    window.addEventListener('scroll', updateBackground);
   </script>
-
 </body>
 </html>
